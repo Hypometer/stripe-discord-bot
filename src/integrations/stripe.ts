@@ -9,6 +9,7 @@ export const resolveCustomerIdFromEmail = async (email: string) => {
     let customerData;
     
     if (email.includes('+')) {
+        console.log("+ path")
         const endPart = email.split('+')[1];
         const customers = await queue.add(async () => await (await fetch(`https://api.stripe.com/v1/customers/search?query=email~'${endPart}'`, {
             headers: {
@@ -18,12 +19,15 @@ export const resolveCustomerIdFromEmail = async (email: string) => {
         const matchingCustomers = customers.data.filter((c: any) => c.email === email);
         customerData = matchingCustomers[0];
     } else {
+        console.log("normal path")
         const customers = await queue.add(async () => await (await fetch(`https://api.stripe.com/v1/customers/search?query=email:'${email}'`, {
             headers: {
                 Authorization: `Bearer ${process.env.STRIPE_API_KEY}`
             }
         })).json());
+        console.log(customers)
         customerData = customers.data[0];
+        console.log(customerData)
     }
 
     return customerData?.id;

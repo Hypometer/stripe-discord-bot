@@ -17,3 +17,5 @@ members.json
 build/
 
 dist/
+
+**/.DS_Store
