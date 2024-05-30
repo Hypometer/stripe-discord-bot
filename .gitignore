@@ -6,6 +6,7 @@ node_modules
 
 # Env
 .env
+env_file
 
 # Data
 data.csv
