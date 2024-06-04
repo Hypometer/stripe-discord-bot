@@ -5,7 +5,9 @@ WORKDIR /app
 
 COPY . /app
 
-RUN yarn install
-RUN yarn build
+# RUN yarn install
+# RUN yarn build
+RUN npm install
+RUN npm run build
 
-CMD ["yarn","start"]
+CMD ["npm", "run", "start"]
